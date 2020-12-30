@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:background="#4E4F50"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_views"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/deleted_title_tv"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/main_title"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/deleted_notes_tv"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/deleted_title_tv"
+            android:layout_alignStart="@+id/deleted_title_tv"
+            android:layout_alignEnd="@+id/deleted_title_tv"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="35dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/notes"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
