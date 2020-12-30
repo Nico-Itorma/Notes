@@ -119,10 +119,10 @@ public class DeletedFragment extends Fragment {
         switch (item.getItemId())
         {
             case R.id.delete:
-                Toast.makeText(getContext(), "Delete man daa to", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Delete Note", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.restore:
-                Toast.makeText(getContext(), "Restore daa to", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Restore Notes", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
