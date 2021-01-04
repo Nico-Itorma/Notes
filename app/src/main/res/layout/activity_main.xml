@@ -16,8 +16,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="#8D61E4"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#33B5E5"
             android:elevation="5dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#4E4F50"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:paddingTop="5dp">
 
             <ImageView

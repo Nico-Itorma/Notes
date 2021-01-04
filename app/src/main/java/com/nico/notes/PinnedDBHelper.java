@@ -35,7 +35,7 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(NotesCreated notesCreated)
+    public void addOne(NotesCreated notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -43,8 +43,7 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NOTES_TITLE, notesCreated.getTitle());
         cv.put(COLUMN_NOTES_BODY, notesCreated.getNote());
 
-        long insert = db.insert(NOTES_TABLE, null, cv);
-        return insert != -1;
+        db.insert(NOTES_TABLE, null, cv);
     }
 
     public List<NotesCreated> getEveryNote()

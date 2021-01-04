@@ -64,7 +64,7 @@ public class DeletedFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dbHelper.addOne(note);
                                 delDBHelper.deleteOne(note);
-                                MainActivity.getInstance().delRecyclerView(delDBHelper);
+                                MainActivity.getInstance().delRecyclerView();
                                 Toast.makeText(main_activity, "Note Restored", Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("Disagree", null);
@@ -80,13 +80,12 @@ public class DeletedFragment extends Fragment {
                 final NotesCreated note = notesCreateds.get(position);
 
                 androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(main_activity);
-                alert.setIcon(R.drawable.ic_delete);
-                alert.setTitle("Permanently Delete Note?").
+                alert.setMessage("Permanently Delete Note?").
                         setPositiveButton("Agree", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 delDBHelper.deleteOne(note);
-                                MainActivity.getInstance().delRecyclerView(delDBHelper);
+                                MainActivity.getInstance().delRecyclerView();
                                 Toast.makeText(getContext(), "Note Permanently Deleted", Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("Disagree", null);

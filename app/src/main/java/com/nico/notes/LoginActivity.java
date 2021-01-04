@@ -1,9 +1,7 @@
 package com.nico.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.stream.Collector;
-
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 

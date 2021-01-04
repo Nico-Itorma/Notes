@@ -30,6 +30,7 @@ public class NotesFragment extends Fragment {
     List<NotesCreated> notesCreateds;
     Context main_activity;
 
+    //context
     public NotesFragment(MainActivity mainActivity) {
         main_activity = mainActivity;
     }

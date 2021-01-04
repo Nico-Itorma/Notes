@@ -7,26 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.List;
-
 import static android.widget.Toast.LENGTH_SHORT;
 
 
@@ -52,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NotesFragment notesFragment = new NotesFragment(this);
-        DeletedFragment deletedFragment = new DeletedFragment(this);
-        NotesAdapter notesAdapter = new NotesAdapter(this);
-        PinnedAdapter pinnedAdapter = new PinnedAdapter(this);
+        new NotesFragment(this);
+        new DeletedFragment(this);
+        new NotesAdapter(this);
+        new PinnedAdapter(this);
 
         tv_jingle = findViewById(R.id.tv_jingle);
 
@@ -161,11 +152,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //RecyclerView update on DeletedNotes Fragment
-    public void delRecyclerView(DelDBHelper delDBHelper) {
+    public void delRecyclerView() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeletedFragment(this)).commit();
     }
 
-    public void pinnedRecyclerView(PinnedDBHelper pinnedDBHelper){
+    public void pinnedRecyclerView(){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PinnedFragment(this)).commit();
     }
 

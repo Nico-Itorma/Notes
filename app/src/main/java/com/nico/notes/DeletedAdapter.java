@@ -1,6 +1,5 @@
 package com.nico.notes;
 
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

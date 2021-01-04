@@ -22,16 +22,15 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Intent intent;
                 if (pin.equals("")){
-                    Intent intent = new Intent(SplashActivity.this, CreatePass.class);
-                    startActivity(intent);
-                    finish();
+                    intent = new Intent(SplashActivity.this, CreatePass.class);
                 }
                 else {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                 }
+                startActivity(intent);
+                finish();
             }
         }, 1500);
 

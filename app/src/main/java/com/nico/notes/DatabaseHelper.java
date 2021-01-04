@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(NotesCreated notesCreated)
+    public void addOne(NotesCreated notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -44,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NOTES_TITLE, notesCreated.getTitle());
         cv.put(COLUMN_NOTES_BODY, notesCreated.getNote());
 
-        long insert = db.insert(NOTES_TABLE, null, cv);
-        return insert != -1;
+        db.insert(NOTES_TABLE, null, cv);
     }
 
     public List<NotesCreated> getEveryNote()
@@ -77,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public boolean deleteOne(NotesCreated notesCreated)
+    public void deleteOne(NotesCreated notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -85,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
 
-        return cursor.moveToFirst();
+        cursor.moveToFirst();
     }
 
     public NotesCreated getNote(int id) {
@@ -97,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
+        assert cursor != null;
         return new NotesCreated(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
     }
 
@@ -125,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return notes;
     }
 
-    public int editNote(NotesCreated notesCreated) {
+    public void editNote(NotesCreated notesCreated) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
@@ -135,6 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NOTES_TITLE, notesCreated.getTitle());
         cv.put(COLUMN_NOTES_BODY, notesCreated.getNote());
 
-        return db.update(NOTES_TABLE, cv, COLUMN_ID + "=?", new String[] {String.valueOf(notesCreated.getId())});
+        db.update(NOTES_TABLE, cv, COLUMN_ID + "=?", new String[]{String.valueOf(notesCreated.getId())});
     }
 }
