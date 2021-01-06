@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class SettingsFragment extends Fragment {
@@ -56,12 +55,10 @@ public class SettingsFragment extends Fragment {
                     public void onClick(View view) {
                         String pin1 = change_pin1.getText().toString().trim();
                         String pin2 = change_pin2.getText().toString().trim();
-                        if ((pin1.equals("")) || (pin2.equals("")))
-                        {
+
+                        if ((pin1.equals("")) || (pin2.equals(""))) {
                             Toast.makeText(getContext(), "No PIN entered", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (pin1.length() == 4 && pin2.length() == 4)
-                        {
+                        } else if (pin1.length() == 4 && pin2.length() == 4) {
                             if (pin1.equals(pin2)) {
                                 //save pin to password
                                 SharedPreferences sp = getContext().getSharedPreferences("PIN", 0);
@@ -72,10 +69,13 @@ public class SettingsFragment extends Fragment {
                                 Toast.makeText(getContext(), "Login pin changed", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
-
                         }
-                        else {
-                            change_pin2.setError("PIN do not match");
+                        if (pin1.length() < 4 && pin2.length() < 4) {
+                            change_pin1.setError("PIN must be at least 4 characters");
+
+                            if ((pin1.length() == 4 && pin2.length() == 4) && (!pin1.equals(pin2))) {
+                                change_pin2.setError("PIN do not match");
+                            }
                         }
                     }
                 });
@@ -90,7 +90,6 @@ public class SettingsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         return view;
     }
-
 }
 
 
