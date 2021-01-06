@@ -1,9 +1,15 @@
 package com.nico.notes;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +25,14 @@ public class SettingsFragment extends Fragment {
     SettingsAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<SettingsItem> settingsList;
+    AlertDialog dialog;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         settingsList = new ArrayList<>();
-        settingsList.add(new SettingsItem("Change Login Password"));
+        settingsList.add(new SettingsItem("Change login password"));
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
@@ -38,7 +45,46 @@ public class SettingsFragment extends Fragment {
         mAdapter.setOnClick(new SettingsAdapter.OnClickListener() {
             @Override
             public void onClick(int position) {
-                //TODO: how how how
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View v = inflater.inflate(R.layout.activity_create_pass, container, false);
+                builder.setView(v);
+                final EditText change_pin1 = v.findViewById(R.id.create_pin1);
+                final EditText change_pin2 = v.findViewById(R.id.create_pin2);
+                Button confirm = v.findViewById(R.id.confirm);
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String pin1 = change_pin1.getText().toString().trim();
+                        String pin2 = change_pin2.getText().toString().trim();
+                        if ((pin1.equals("")) || (pin2.equals("")))
+                        {
+                            Toast.makeText(getContext(), "No PIN entered", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (pin1.length() == 4 && pin2.length() == 4)
+                        {
+                            if (pin1.equals(pin2)) {
+                                //save pin to password
+                                SharedPreferences sp = getContext().getSharedPreferences("PIN", 0);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString("password", pin2);
+                                editor.apply();
+
+                                Toast.makeText(getContext(), "Login pin changed", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+
+                        }
+                        else {
+                            change_pin2.setError("PIN do not match");
+                        }
+                    }
+                });
+
+                dialog = builder.create();
+                dialog.show();
+
             }
         });
 
@@ -46,6 +92,7 @@ public class SettingsFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         return view;
     }
+
 }
 
 

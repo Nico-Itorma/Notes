@@ -22,7 +22,7 @@
     <string name="empty_note_sign">empty_note_sign</string>
     <string name="confirm">CONFIRM</string>
     <string name="enter_pin">Enter PIN</string>
-    <string name="create_a_login_pin">CREATE A LOGIN PIN</string>
+    <string name="create_a_login_pin">CREATE A 4-DIGIT PIN</string>
     <string name="re_enter_pin">Re-enter PIN</string>
     <string name="edit_note">Edit Note</string>
     <string name="my_notes">My Notes</string>

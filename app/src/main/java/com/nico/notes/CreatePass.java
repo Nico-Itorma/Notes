@@ -33,20 +33,28 @@ public class CreatePass extends AppCompatActivity {
         {
             Toast.makeText(CreatePass.this, "No PIN entered", Toast.LENGTH_SHORT).show();
         }
-        else if (text1.equals(text2))
+        else if (pin1.length() == 4 && pin2.length() == 4)
         {
-            //save pin to password
-            SharedPreferences sp = getSharedPreferences("PIN", 0);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("password", text2);
-            editor.apply();
+            if (text1.equals(text2)) {
+                //save pin to password
+                SharedPreferences sp = getSharedPreferences("PIN", 0);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("password", text2);
+                editor.apply();
 
-            Intent intent = new Intent(CreatePass.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(CreatePass.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
-        else {
-            pin2.setError("PIN do not match");
+        if (pin1.length() < 4 && pin2.length() < 4) {
+            pin1.setError("PIN must be at least 4 characters");
+            pin2.setError("PIN must be at least 4 characters");
+
+            if ((pin1.length() == 4 && pin2.length() == 4) && (!text1.equals(text2)))
+            {
+                pin2.setError("PIN do not match");
+            }
         }
     }
 }

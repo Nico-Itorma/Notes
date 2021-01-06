@@ -19,8 +19,9 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#33B5E5"
             android:elevation="5dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            android:foregroundTint="#000"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 
         <FrameLayout
             android:id="@+id/fragment_container"

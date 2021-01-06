@@ -105,28 +105,28 @@ public class DeletedFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_menus, menu);
-        menu.findItem(R.id.tb_add).setVisible(false);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.delete:
-                Toast.makeText(getContext(), "Delete Note", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.restore:
-                Toast.makeText(getContext(), "Restore Notes", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        inflater.inflate(R.menu.toolbar_menus, menu);
+//        menu.findItem(R.id.tb_add).setVisible(false);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @SuppressLint("NonConstantResourceId")
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId())
+//        {
+//            case R.id.delete:
+//                Toast.makeText(getContext(), "Delete Note", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.restore:
+//                Toast.makeText(getContext(), "Restore Notes", Toast.LENGTH_SHORT).show();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }
 
 
