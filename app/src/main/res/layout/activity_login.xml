@@ -154,5 +154,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:textColor="#fff"
         android:text="@string/forgot_pin"/>
 </LinearLayout>
