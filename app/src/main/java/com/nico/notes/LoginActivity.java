@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String password;
     TextView textView;
+    Button forgot_pin;
 
     TextView number0, number1, number2, number3, number4, number5, number6, number7, number8, number9;
     ImageView numberBack, numberOK;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         number9 = findViewById(R.id.number9);
         numberOK = findViewById(R.id.numberOK);
         numberBack = findViewById(R.id.numberB);
+        forgot_pin = findViewById(R.id.forgot_pin);
 
         number0.setOnClickListener(this);
         number1.setOnClickListener(this);
@@ -87,6 +90,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 next();
+            }
+        });
+
+        forgot_pin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CreatePass.class);
+                startActivity(intent);
             }
         });
     }

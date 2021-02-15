@@ -28,7 +28,7 @@
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="serif"
         android:textColor="#fff"
         android:textSize="20sp" />
@@ -57,76 +57,75 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="312dp"
-        android:layout_marginTop="90dp"
-        android:padding="48dp">
+        android:layout_height="284dp"
+        android:layout_marginTop="60dp"
+        android:padding="30dp">
 
         <TextView
             android:id="@+id/number1"
             style="@style/NumberInPasscode"
             android:layout_alignParentStart="true"
-            android:text="@string/number_1"/>
+            android:text="@string/number_1" />
 
         <TextView
             android:id="@+id/number2"
             style="@style/NumberInPasscode"
             android:layout_centerHorizontal="true"
-            android:text="@string/number_2"/>
+            android:text="@string/number_2" />
 
         <TextView
             android:id="@+id/number3"
             style="@style/NumberInPasscode"
             android:layout_alignParentEnd="true"
-            android:text="@string/number_3"/>
+            android:text="@string/number_3" />
 
         <TextView
             android:id="@+id/number4"
             style="@style/NumberInPasscode"
-            android:layout_alignParentStart="true"
             android:layout_below="@id/number1"
-            android:text="@string/number_4"
-            />
+            android:layout_alignParentStart="true"
+            android:text="@string/number_4" />
 
         <TextView
             android:id="@+id/number5"
             style="@style/NumberInPasscode"
             android:layout_below="@id/number1"
             android:layout_centerHorizontal="true"
-            android:text="@string/number_5"/>
+            android:text="@string/number_5" />
 
         <TextView
             android:id="@+id/number6"
             style="@style/NumberInPasscode"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/number1"
-            android:text="@string/number_6"/>
+            android:layout_alignParentEnd="true"
+            android:text="@string/number_6" />
 
         <TextView
             android:id="@+id/number7"
             style="@style/NumberInPasscode"
-            android:layout_alignParentStart="true"
             android:layout_below="@id/number4"
-            android:text="@string/number_7"/>
+            android:layout_alignParentStart="true"
+            android:text="@string/number_7" />
 
         <TextView
             android:id="@+id/number8"
             style="@style/NumberInPasscode"
             android:layout_below="@id/number4"
             android:layout_centerHorizontal="true"
-            android:text="@string/number_8"/>
+            android:text="@string/number_8" />
 
         <TextView
             android:id="@+id/number9"
             style="@style/NumberInPasscode"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/number4"
-            android:text="@string/number_9"/>
+            android:layout_alignParentEnd="true"
+            android:text="@string/number_9" />
 
         <ImageView
             android:id="@+id/numberB"
             style="@style/NumberInPasscode"
-            android:layout_alignParentEnd="true"
             android:layout_below="@id/number7"
+            android:layout_alignParentEnd="true"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_backspace"
             app:tint="#000"
@@ -137,17 +136,23 @@
             style="@style/NumberInPasscode"
             android:layout_below="@id/number7"
             android:layout_centerHorizontal="true"
-            android:text="@string/number_0"/>
+            android:text="@string/number_0" />
 
         <ImageView
             android:id="@+id/numberOK"
             style="@style/NumberInPasscode"
-            android:layout_alignParentStart="true"
             android:layout_below="@id/number7"
+            android:layout_alignParentStart="true"
             android:scaleType="centerInside"
-            app:tint="#000"
             app:srcCompat="@drawable/ic_check"
+            app:tint="#000"
             tools:ignore="ContentDescription" />
 
     </RelativeLayout>
+    <Button
+        android:id="@+id/forgot_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/forgot_pin"/>
 </LinearLayout>

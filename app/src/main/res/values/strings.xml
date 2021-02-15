@@ -40,4 +40,5 @@
     <string name="delete_note">Delete Note</string>
     <string name="unpin_note">Unpin Note</string>
     <string name="restore_note">Restore Note</string>
+    <string name="forgot_pin">Forgot PIN?</string>
 </resources>
