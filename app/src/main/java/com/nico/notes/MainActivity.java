@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new NotesFragment(this);
-        new DeletedFragment(this);
-        new NotesAdapter(this);
-        new PinnedAdapter(this);
-
         tv_jingle = findViewById(R.id.tv_jingle);
 
         final DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
