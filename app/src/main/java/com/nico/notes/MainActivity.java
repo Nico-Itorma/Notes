@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.nav_notes:
                         toolbar.setTitle("Notes");
-                        buildRecyclerView(dbHelper);
+                        updateNoteFragment(dbHelper);
                         break;
                     case R.id.nav_pin:
                         tv_jingle.setVisibility(View.GONE);
@@ -129,18 +129,18 @@ public class MainActivity extends AppCompatActivity {
             navigationView.setCheckedItem(R.id.nav_notes);
         }
         instance = this;
-        buildRecyclerView(dbHelper);
+
+        updateNoteFragment(dbHelper);
     }
 
-    public void buildRecyclerView(final DatabaseHelper dbHelper) {
-
+    public void updateNoteFragment(final DatabaseHelper dbHelper)
+    {
         List<DataModels> notes = dbHelper.getEveryNote();
         if (notes.size() == 0)
         {
             tv_jingle.setVisibility(View.VISIBLE);
         }
-        else
-        {
+        else {
             tv_jingle.setVisibility(View.GONE);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment(this)).commit();
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                buildRecyclerView(dbHelper);
+                updateNoteFragment(dbHelper);
             }
         }, 600);
 

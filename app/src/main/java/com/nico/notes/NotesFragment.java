@@ -92,7 +92,7 @@ public class NotesFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         delDBHelper.addOne(notes);
                         dbHelper.deleteOne(notes);
-                        MainActivity.instance.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment(MainActivity.instance)).commit();
+                        MainActivity.instance.updateNoteFragment(dbHelper);
                         Toast.makeText(main_activity, "Note Deleted", Toast.LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("No", null);
