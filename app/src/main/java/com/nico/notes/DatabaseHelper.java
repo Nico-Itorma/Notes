@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addOne(NotesCreated notesCreated)
+    public void addOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -47,9 +47,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(NOTES_TABLE, null, cv);
     }
 
-    public List<NotesCreated> getEveryNote()
+    public List<DataModels> getEveryNote()
     {
-        List<NotesCreated> returnList = new ArrayList<>();
+        List<DataModels> returnList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + NOTES_TABLE;
@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(1);
                 String note = cursor.getString(2);
 
-                NotesCreated newData = new NotesCreated(id, title, note);
+                DataModels newData = new DataModels(id, title, note);
                 returnList.add(newData);
 
             }while(cursor.moveToNext());
@@ -76,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public void deleteOne(NotesCreated notesCreated)
+    public void deleteOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -87,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
     }
 
-    public NotesCreated getNote(int id) {
+    public DataModels getNote(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         @SuppressLint("Recycle") Cursor cursor = db.query(NOTES_TABLE, new String[]{COLUMN_ID, COLUMN_NOTES_TITLE, COLUMN_NOTES_BODY,COLUMN_ID}, COLUMN_ID + "=?", new String[] {String.valueOf(id)}, null, null, null);
@@ -97,12 +97,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         assert cursor != null;
-        return new NotesCreated(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+        return new DataModels(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
     }
 
-    public List<NotesCreated> getNotes() {
+    public List<DataModels> getNotes() {
         SQLiteDatabase db = this.getReadableDatabase();
-        List<NotesCreated> notes = new ArrayList<>();
+        List<DataModels> notes = new ArrayList<>();
 
         String query = "SELECT * FROM " + NOTES_TABLE;
 
@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null) {
 
             do {
-                NotesCreated newNote = new NotesCreated();
+                DataModels newNote = new DataModels();
                 newNote.setId(cursor.getInt(0));
                 newNote.setTitle(cursor.getString(1));
                 newNote.setNote(cursor.getString(2));
@@ -125,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return notes;
     }
 
-    public void editNote(NotesCreated notesCreated) {
+    public void editNote(DataModels notesCreated) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();

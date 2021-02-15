@@ -24,7 +24,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
-    private static MainActivity instance;
+    public static MainActivity instance;
 
     String title;
     String notes;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                 setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Toast.makeText(MainActivity.this, "Logging Out...", LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "Closing Notes...", LENGTH_SHORT).show();
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -132,14 +132,9 @@ public class MainActivity extends AppCompatActivity {
         buildRecyclerView(dbHelper);
     }
 
-    public static MainActivity getInstance()
-    {
-        return instance;
-    }
-
     public void buildRecyclerView(final DatabaseHelper dbHelper) {
 
-        List<NotesCreated> notes = dbHelper.getEveryNote();
+        List<DataModels> notes = dbHelper.getEveryNote();
         if (notes.size() == 0)
         {
             tv_jingle.setVisibility(View.VISIBLE);
@@ -151,16 +146,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment(this)).commit();
     }
 
-    //RecyclerView update on DeletedNotes Fragment
-    public void delRecyclerView() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeletedFragment(this)).commit();
-    }
-
-    public void pinnedRecyclerView(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PinnedFragment(this)).commit();
-    }
-
-
     @Override
     public void onBackPressed()
     {
@@ -170,11 +155,11 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-            alert.setMessage("Log Out?").
+            alert.setMessage("Close app?").
                     setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(MainActivity.this, "Logging Out...", LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Closing app...", LENGTH_SHORT).show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -209,14 +194,14 @@ public class MainActivity extends AppCompatActivity {
     {
         title = et_title.getText().toString().trim();
         notes = et_notes.getText().toString().trim();
-        NotesCreated notesCreated = new NotesCreated(-1, "Empty error", "Empty Error");
+        DataModels notesCreated = new DataModels(-1, "Empty error", "Empty Error");
         try {
             if ((title.length() == 0) && (notes.length() == 0))
             {
                 Toast.makeText(this, "Empty notes cannot be saved", Toast.LENGTH_SHORT).show();
             }
             else{
-                notesCreated = new NotesCreated(1, title, notes);
+                notesCreated = new DataModels(1, title, notes);
 //                Toast.makeText(this, notesCreated.toString(), LENGTH_SHORT).show();
             }
 
@@ -224,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e)
         {
             Toast.makeText(this, "Error creating New Note: " + e, Toast.LENGTH_SHORT).show();
-            notesCreated = new NotesCreated(0, "Error", "Something went wrong");
+            notesCreated = new DataModels(0, "Error", "Something went wrong");
         }
 
         dbHelper = new DatabaseHelper(MainActivity.this);

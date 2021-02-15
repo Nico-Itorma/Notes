@@ -35,7 +35,7 @@ public class DelDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addOne(NotesCreated notesCreated)
+    public void addOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -46,9 +46,9 @@ public class DelDBHelper extends SQLiteOpenHelper {
         db.insert(NOTES_TABLE, null, cv);
     }
 
-    public List<NotesCreated> getEveryNote()
+    public List<DataModels> getEveryNote()
     {
-        List<NotesCreated> returnList = new ArrayList<>();
+        List<DataModels> returnList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + NOTES_TABLE;
@@ -63,7 +63,7 @@ public class DelDBHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(1);
                 String note = cursor.getString(2);
 
-                NotesCreated newData = new NotesCreated(id, title, note);
+                DataModels newData = new DataModels(id, title, note);
                 returnList.add(newData);
 
             }while(cursor.moveToNext());
@@ -75,7 +75,7 @@ public class DelDBHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public void deleteOne(NotesCreated notesCreated)
+    public void deleteOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 

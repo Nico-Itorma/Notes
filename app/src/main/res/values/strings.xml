@@ -5,7 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="main_title">Main Title</string>
     <string name="notes">Notes</string>
-    <string name="delete_note">Delete Note</string>
     <string name="pin_note">Pin Note</string>
     <string name="pinned_notes">Pinned Notes</string>
     <string name="deleted_notes">Deleted Notes</string>
@@ -15,7 +14,6 @@
     <string name="nothing_here">Notes you add appear here</string>
     <string name="enter_password">Please enter pin</string>
     <string name="login_warning">PRIVATE PROPERTY BEYOND THIS POINT</string>
-    <string name="unpin_note">Unpin Note</string>
     <string name="note">Note</string>
     <string name="title">Title</string>
     <string name="add">Add</string>
@@ -39,4 +37,7 @@
     <string name="number_8">8</string>
     <string name="number_9">9</string>
     <string name="number_0">0</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="unpin_note">Unpin Note</string>
+    <string name="restore_note">Restore Note</string>
 </resources>

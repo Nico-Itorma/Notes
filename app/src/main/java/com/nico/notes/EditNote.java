@@ -13,7 +13,7 @@ public class EditNote extends AppCompatActivity {
 
     EditText et_title, et_note;
     DatabaseHelper dbHelper;
-    NotesCreated note;
+    DataModels note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,17 @@ public class EditNote extends AppCompatActivity {
     }
 
     public void save(View view) {
+        saveChanges();
+        finish();
+    }
 
+    @Override
+    public void onBackPressed() {
+        saveChanges();
+        super.onBackPressed();
+    }
+
+    public void saveChanges() {
         if ((et_title.getText().length() != 0) && (et_note.getText().length()) != 0) {
             note.setTitle(et_title.getText().toString().trim());
             note.setNote(et_note.getText().toString().trim());
@@ -51,6 +61,5 @@ public class EditNote extends AppCompatActivity {
             Toast.makeText(this, "Empty notes cannot be saved", Toast.LENGTH_SHORT).show();
         }
 
-        finish();
     }
 }

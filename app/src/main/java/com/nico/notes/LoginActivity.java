@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void run() {
                     textView.setTextColor(Color.WHITE);
-
+                    textView.setText(TIP);
                     int childCount = layout_psd.getChildCount();
                     if (childCount <= 0) {
                         return;

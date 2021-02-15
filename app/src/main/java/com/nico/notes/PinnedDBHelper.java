@@ -35,7 +35,7 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addOne(NotesCreated notesCreated)
+    public void addOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -44,11 +44,13 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NOTES_BODY, notesCreated.getNote());
 
         db.insert(NOTES_TABLE, null, cv);
+
+        db.close();
     }
 
-    public List<NotesCreated> getEveryNote()
+    public List<DataModels> getEveryNote()
     {
-        List<NotesCreated> PinnedList = new ArrayList<>();
+        List<DataModels> PinnedList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + NOTES_TABLE;
@@ -63,7 +65,7 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(1);
                 String note = cursor.getString(2);
 
-                NotesCreated newData = new NotesCreated(id, title, note);
+                DataModels newData = new DataModels(id, title, note);
                 PinnedList.add(newData);
 
             }while(cursor.moveToNext());
@@ -75,7 +77,7 @@ public class PinnedDBHelper extends SQLiteOpenHelper {
         return PinnedList;
     }
 
-    public void deleteOne(NotesCreated notesCreated)
+    public void deleteOne(DataModels notesCreated)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 

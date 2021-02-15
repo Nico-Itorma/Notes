@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +26,7 @@ public class DeletedFragment extends Fragment {
 
     DelDBHelper delDBHelper;
     DatabaseHelper dbHelper;
-    List<NotesCreated> notesCreateds;
+    List<DataModels> notesCreateds;
     Context main_activity;
 
     public DeletedFragment(MainActivity mainActivity) {
@@ -50,83 +48,54 @@ public class DeletedFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         mAdapter = new DeletedAdapter(notesCreateds);
         recyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter.setOnClick(new DeletedAdapter.OnClickListener() {
-            @Override
-            public void onClick(int position) {
-                final NotesCreated note = notesCreateds.get(position);
-
-                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(main_activity);
-                alert.setIcon(R.drawable.ic_restore);
-                alert.setMessage("Restore Deleted Note?").
-                        setPositiveButton("Agree", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dbHelper.addOne(note);
-                                delDBHelper.deleteOne(note);
-                                MainActivity.getInstance().delRecyclerView();
-                                Toast.makeText(main_activity, "Note Restored", Toast.LENGTH_SHORT).show();
-                            }
-                        }).setNegativeButton("Disagree", null);
-
-                AlertDialog builder = alert.create();
-                builder.show();
-            }
-        });
-
-        mAdapter.setOnLongClick(new DeletedAdapter.OnLongClickListener() {
-            @Override
-            public void onLongClick(int position) {
-                final NotesCreated note = notesCreateds.get(position);
-
-                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(main_activity);
-                alert.setMessage("Permanently Delete Note?").
-                        setPositiveButton("Agree", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                delDBHelper.deleteOne(note);
-                                MainActivity.getInstance().delRecyclerView();
-                                Toast.makeText(getContext(), "Note Permanently Deleted", Toast.LENGTH_SHORT).show();
-                            }
-                        }).setNegativeButton("Disagree", null);
-
-                AlertDialog builder = alert.create();
-                builder.show();
-            }
-        });
-
+        registerForContextMenu(recyclerView);
         recyclerView.setAdapter(mAdapter);
         return view;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-    }
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = DeletedAdapter.getPosition();
+        final DataModels note = notesCreateds.get(position);
+        androidx.appcompat.app.AlertDialog.Builder alert;
+        AlertDialog builder;
+        switch (item.getItemId()) {
+            case R.id.menu_restore:
+                alert = new androidx.appcompat.app.AlertDialog.Builder(main_activity);
+                alert.setMessage("Restore Deleted Note?").
+                        setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dbHelper.addOne(note);
+                                delDBHelper.deleteOne(note);
+                                MainActivity.instance.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeletedFragment(MainActivity.instance)).commit();
+                                Toast.makeText(main_activity, "Note Restored", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setNegativeButton("No", null);
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.toolbar_menus, menu);
-//        menu.findItem(R.id.tb_add).setVisible(false);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @SuppressLint("NonConstantResourceId")
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId())
-//        {
-//            case R.id.delete:
-//                Toast.makeText(getContext(), "Delete Note", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.restore:
-//                Toast.makeText(getContext(), "Restore Notes", Toast.LENGTH_SHORT).show();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+                builder = alert.create();
+                builder.show();
+                return true;
+            case R.id.menu_delete:
+                alert = new androidx.appcompat.app.AlertDialog.Builder(main_activity);
+                alert.setMessage("Permanently Delete Note?").
+                        setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                delDBHelper.deleteOne(note);
+                                MainActivity.instance.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeletedFragment(MainActivity.instance)).commit();
+                                Toast.makeText(getContext(), "Note Permanently Deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setNegativeButton("No", null);
+
+                builder = alert.create();
+                builder.show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 }
 
 
