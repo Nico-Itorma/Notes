@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import java.util.List;
-import static android.widget.Toast.LENGTH_SHORT;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -88,19 +87,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_logout:
                         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                        alert.setMessage("Close the Notes?").
+                        alert.setMessage("Close app?").
                                 setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        Toast.makeText(MainActivity.this, "Closing Notes...", LENGTH_SHORT).show();
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                finish();
-                                                System.exit(0);
-                                            }
-                                        }, 1000);
+                                        drawer.closeDrawer(GravityCompat.START);
+                                        Toast.makeText(MainActivity.this, "Closing app...", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        System.exit(0);
                                     }
                                 }).setNegativeButton("Cancel", null);
                         AlertDialog builder = alert.create();
@@ -154,15 +148,8 @@ public class MainActivity extends AppCompatActivity {
                     setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(MainActivity.this, "Closing app...", LENGTH_SHORT).show();
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    finish();
-                                    System.exit(0);
-                                }
-                            }, 1000);
+                            Toast.makeText(MainActivity.this, "Closing app...", Toast.LENGTH_SHORT).show();
+                            System.exit(0);
                         }
                     }).setNegativeButton("Cancel", null);
             AlertDialog builder = alert.create();
@@ -197,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 notesCreated = new DataModels(1, title, notes);
-//                Toast.makeText(this, notesCreated.toString(), LENGTH_SHORT).show();
             }
 
         }

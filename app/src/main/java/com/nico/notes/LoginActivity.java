@@ -1,14 +1,19 @@
 package com.nico.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.hardware.biometrics.BiometricPrompt;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +21,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     String password;
     TextView textView;
-    Button forgot_pin;
+    Button forgot_pin, use_biometric;
+    androidx.biometric.BiometricPrompt biometricPrompt;
+    androidx.biometric.BiometricPrompt.PromptInfo promptInfo;
 
     TextView number0, number1, number2, number3, number4, number5, number6, number7, number8, number9;
     ImageView numberBack, numberOK;
@@ -30,7 +41,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String WRONG_INPUT = "ACCESS DENIED";
     String CORRECT_INPUT = "ACCESS GRANTED";
-    String TIP = "ENTER 4 digit PIN";
+    String TIP = "ENTER 4 DIGIT PIN";
+    int counter = 0;
+    boolean useIsClicked = false;
+    boolean forgotIsClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         numberOK = findViewById(R.id.numberOK);
         numberBack = findViewById(R.id.numberB);
         forgot_pin = findViewById(R.id.forgot_pin);
+        use_biometric = findViewById(R.id.use_biometric);
 
         number0.setOnClickListener(this);
         number1.setOnClickListener(this);
@@ -93,11 +108,74 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        final Executor executor = Executors.newSingleThreadExecutor();
+        final LoginActivity activity = this;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+
+            promptInfo = new androidx.biometric.BiometricPrompt.PromptInfo.Builder()
+                    .setTitle("Login using Fingerprint")
+                    .setNegativeButtonText("Use PIN")
+                    .build();
+
+            biometricPrompt = new androidx.biometric.BiometricPrompt(this, executor, new androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationSucceeded(@NonNull androidx.biometric.BiometricPrompt.AuthenticationResult result) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Authentication Succeeded", Toast.LENGTH_SHORT).show();
+                            counter = 0;
+                            if (useIsClicked) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            else if (forgotIsClicked)
+                            {
+                                Intent intent = new Intent(getApplicationContext(), CreatePass.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                    Log.d("ERROR ON FINGERPRINT: ", "Fingerprint not recognized");
+                    counter++;
+                }
+
+                @Override
+                public void onAuthenticationError(int errorCode, CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    if (errorCode == BiometricPrompt.BIOMETRIC_ERROR_TIMEOUT) {
+                        Log.d("ERROR: ", "Unrecoverable error");
+                    }
+                }
+
+            });
+        }
+
         forgot_pin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CreatePass.class);
-                startActivity(intent);
+                forgotIsClicked = true;
+                biometricPrompt.authenticate(promptInfo);
+            }
+        });
+
+
+        use_biometric.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (counter != 4) {
+                    useIsClicked = true;
+                    biometricPrompt.authenticate(promptInfo);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wait 30 secs.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -148,8 +226,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void next() {
         String psd = getPINFromView();
-        if (psd.equals(password))
-        {
+        if (psd.equals(password)) {
             textView.setTextColor(Color.GREEN);
             textView.setText(CORRECT_INPUT);
             Handler handler = new Handler();
@@ -169,13 +246,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }, 900);
 
-        }
-        else if (psd.length() < password.length())
-        {
+        } else if (psd.length() < password.length()) {
             runTipTextAnimation();
-        }
-        else
-        {
+        } else {
             runTipTextAnimation();
             textView.setText(WRONG_INPUT);
             textView.setTextColor(Color.parseColor("#FFE63A3A"));

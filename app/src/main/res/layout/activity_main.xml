@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -17,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#33B5E5"
+            android:background="#FF33B5E5"
             android:elevation="5dp"
             android:foregroundTint="#000"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
@@ -27,7 +28,7 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#4E4F50"
+            android:background="@color/background"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:paddingTop="5dp">
 

@@ -2,6 +2,7 @@ package com.nico.notes;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -71,8 +72,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     }
 
     public static class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        public TextView title;
-        public TextView note;
+        private final TextView title;
+        private final TextView note;
         int position;
 
         public NotesViewHolder(@NonNull View itemView, final OnItemClickListener listener) {

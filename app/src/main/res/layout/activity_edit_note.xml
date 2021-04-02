@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,60 +11,73 @@
     android:padding="10dp"
     tools:context=".EditNote">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="serif"
+        android:text="@string/edit_note"
+        android:textColor="#F4F4F4"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_title"/>
 
-        <TextView
-            android:id="@+id/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="2dp"
-            android:fontFamily="serif"
-            android:text="@string/edit_note"
-            android:textColor="#F4F4F4"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/btn_save"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="save"
+        android:src="@drawable/ic_save"
+        tools:ignore="ContentDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_title"/>
 
-        <ImageView
-            android:id="@+id/btn_save"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="2dp"
-            android:onClick="save"
-            android:src="@drawable/ic_save"
-            tools:ignore="ContentDescription" />
 
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/notes_update_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <EditText
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:autofillHints="number"
         android:background="#4E4F50"
         android:hint="@string/title"
         android:inputType="text"
         android:padding="10dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textColorHint="#AEAEAE"
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="154dp"
-        android:autofillHints="number"
-        tools:ignore="LabelFor"/>
+        tools:ignore="LabelFor"
+        app:layout_constraintTop_toBottomOf="@id/close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
         android:id="@+id/edit_note"
         android:layout_width="match_parent"
-        android:layout_height="741dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp"
+        android:autofillHints="number"
         android:background="#4E4F50"
         android:gravity="start"
         android:hint="@string/note"
@@ -73,10 +87,12 @@
         android:textColor="#ffffff"
         android:textColorHint="#AEAEAE"
         android:textSize="20sp"
+        tools:ignore="LabelFor"
         tools:layout_editor_absoluteX="14dp"
         tools:layout_editor_absoluteY="233dp"
-        android:autofillHints="number"
-        tools:ignore="LabelFor"/>
+        app:layout_constraintTop_toBottomOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
