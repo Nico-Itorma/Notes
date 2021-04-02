@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog dialog;
     DatabaseHelper dbHelper;
     ImageView tv_jingle;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String UPDATED = "time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +209,12 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             dbHelper.addOne(notesCreated);
+            Date currentTime = Calendar.getInstance().getTime();
+            String time = currentTime.toString();
+            preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            editor = preferences.edit();
+            editor.putString(UPDATED, time);
+            editor.apply();
         }
 
         tv_jingle.setVisibility(View.INVISIBLE);
